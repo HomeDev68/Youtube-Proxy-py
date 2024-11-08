@@ -2,8 +2,7 @@ from flask import Flask, request, send_file, render_template_string
 import requests
 import os
 import time
-from pytube import YouTube
-import youtube_dl
+import yt_dlp
 
 app = Flask(__name__)
 app.config['PORT'] = 4567
@@ -60,7 +59,7 @@ def watch():
         'noplaylist': True,
     }
 
-    with youtube_dl.YoutubeDL(ydl_opts) as ydl:
+    with yt_dlp.YoutubeDL(ydl_opts) as ydl:
         info_dict = ydl.extract_info(watchurl, download=True)
         video_title = info_dict.get('title', None)
         video_description = info_dict.get('description', None)
